@@ -3,6 +3,7 @@ Changes
 LICENSE
 MANIFEST
 META.json
+META.yml
 README
 dist.ini
 lib/Test/SVN/Repo.pm
@@ -11,7 +12,11 @@ t/00-compile.t
 t/author-critic.t
 t/multiple.t
 t/noserver.t
+t/release-check-changes.t
+t/release-cpan-changes.t
+t/release-distmeta.t
 t/release-eol.t
+t/release-meta-json.t
 t/release-no-tabs.t
 t/release-pod-coverage.t
 t/release-pod-syntax.t

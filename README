@@ -2,7 +2,7 @@ NAME
     Test::SVN::Repo - Subversion repository fixtures for testing
 
 VERSION
-    version 0.001
+    version 0.002
 
 SYNOPSIS
         # Create a plain on-disk repo
