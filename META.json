@@ -1,0 +1,65 @@
+{
+   "abstract" : "Subversion repository fixtures for testing",
+   "author" : [
+      "Stephen Thirlwall <sdt@cpan.org>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 4.200015, CPAN::Meta::Converter version 2.110440",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Test-SVN-Repo",
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "Module::Build" : "0.3601"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "Module::Build" : "0.3601"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Carp" : 0,
+            "Class::Accessor" : 0,
+            "File::Temp" : 0,
+            "IPC::Run" : 0,
+            "Path::Class" : 0,
+            "Test::Builder::Module" : 0,
+            "Try::Tiny" : 0
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Config" : 0,
+            "English" : 0,
+            "File::Find" : 0,
+            "IPC::Cmd" : 0,
+            "Test::Exception" : 0,
+            "Test::More" : 0,
+            "Test::NoWarnings" : 0
+         }
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "mailto" : "bug-Test-SVN-Repo@rt.cpan.org",
+         "web" : "https://rt.cpan.org/Public/Dist/Display.html?Name=Test-SVN-Repo"
+      },
+      "homepage" : "http://search.cpan.org/dist/Test-SVN-Repo",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/sdt/test-svn-repo.git",
+         "web" : "https://github.com/sdt/test-svn-repo"
+      }
+   },
+   "version" : "0.001"
+}
+
