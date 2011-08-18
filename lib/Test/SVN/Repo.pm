@@ -1,8 +1,11 @@
 package Test::SVN::Repo;
 {
-  $Test::SVN::Repo::VERSION = '0.003';
+  $Test::SVN::Repo::VERSION = '0.004';
 }
 # ABSTRACT: Subversion repository fixtures for testing
+
+use strict;
+use warnings;
 
 use Carp        qw( croak );
 use IPC::Run    qw( run start );
@@ -128,8 +131,8 @@ sub _create_repo {
     my ($in, $out, $err);
     run(\@cmd, \$in, \$out, \$err)
         or croak $err;
-    _diag($command, $out) if $out && $self->verbose;
-    _diag($command, $err) if $err && $self->verbose;
+    _diag(join(' ', @cmd), $out) if $out && $self->verbose;
+    _diag(join(' ', @cmd), $err) if $err && $self->verbose;
 }
 
 sub _create_file {
@@ -233,7 +236,7 @@ Test::SVN::Repo - Subversion repository fixtures for testing
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 

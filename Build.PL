@@ -24,7 +24,7 @@ my %module_build_args = (
     'Stephen Thirlwall <sdt@cpan.org>'
   ],
   'dist_name' => 'Test-SVN-Repo',
-  'dist_version' => '0.003',
+  'dist_version' => '0.004',
   'license' => 'perl',
   'module_name' => 'Test::SVN::Repo',
   'recommends' => {},
