@@ -24,7 +24,7 @@ my %module_build_args = (
     'Stephen Thirlwall <sdt@cpan.org>'
   ],
   'dist_name' => 'Test-SVN-Repo',
-  'dist_version' => '0.004',
+  'dist_version' => '0.005',
   'license' => 'perl',
   'module_name' => 'Test::SVN::Repo',
   'recommends' => {},
@@ -36,7 +36,8 @@ my %module_build_args = (
     'IPC::Run' => '0',
     'Path::Class' => '0',
     'Test::Builder::Module' => '0',
-    'Try::Tiny' => '0'
+    'Try::Tiny' => '0',
+    'URI::file' => '0'
   },
   'script_files' => []
 );

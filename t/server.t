@@ -3,9 +3,8 @@
 use strict;
 use warnings;
 
-use Test::More tests => 24;
+use Test::More tests => 28;
 use Test::Exception;
-use Test::NoWarnings;
 
 use Config;
 use IPC::Cmd qw( can_run run );
@@ -13,13 +12,12 @@ use IPC::Run ();
 
 BEGIN { use_ok( 'Test::SVN::Repo' ) }
 
-my %sig_num;
-@sig_num{split ' ', $Config{sig_name}} = split ' ', $Config{sig_num};
+use Test::NoWarnings;
 
 my $svn;
 
 SKIP: {
-    skip 'Subversion not installed', 22
+    skip 'Subversion not installed', 26
         unless ($svn = can_run('svn'));
 
     my %users = ( userA => 'passA', userB => 'passB' );
@@ -64,28 +62,44 @@ SKIP: {
         }
     }
 
+SKIP: {
+    skip 'Not valid for Win32', 15
+       if $^O eq 'MSWin32';
+
     note 'Port range tests'; {
+
+        # This mysteriously doesn't work on win32.
+        # I can manually start multiple svnserve instances on a single port.
+        # Its as if they get queued up - the first one serves the requests,
+        # and the second takes over once the first has exited.
+
         my $repo = Test::SVN::Repo->new( users      => \%users,
-                                        start_port => 50000,
-                                        end_port   => 60000 );
+                                         start_port => 50000,
+                                         end_port   => 60000 );
         my $port = $repo->server_port;
         ok($port >= $repo->start_port, '... port is within specified range');
         ok($port <= $repo->end_port,   '... port is within specified range');
 
         # Try creating a server on a port we know is taken
         my $retry_count = 5;
-        throws_ok { Test::SVN::Repo->new( users       => \%users,
-                                        start_port  => $port,
-                                        end_port    => $port,
-                                        retry_count => $retry_count ) }
+        throws_ok { Test::SVN::Repo->new(users       => \%users,
+                                         start_port  => $port,
+                                         end_port    => $port,
+                                         retry_count => $retry_count ) }
             qr/Giving up after $retry_count attempts/,
             '... server gives up if no ports available';
     }
 
     note 'Check that svnserve gets cleaned up'; {
 
+        # Killing the child process doesn't seem to work on win32.
+        # IPC::Run confirms this behaviour. Processes can only be KILLED
+        # under win32.
+
         for my $signame (qw( HUP INT QUIT TERM )) {
-            my $pid = spawn_and_signal($sig_num{$signame});
+            my $pid;
+            lives_ok { $pid = spawn_and_signal($signame) }
+                '... child process started okay';
 
             like($pid, qr/^\d+$/, '... got valid pid for server process');
 
@@ -94,13 +108,14 @@ SKIP: {
             ok(! process_exists($pid), '... svnserve process has shutdown after receiving signal ' . $signame)
         }
     }
+} # end SKIP Win32
 
     note 'Verbose mode'; {
         lives_ok { Test::SVN::Repo->new( users => \%users, verbose => 1 ) }
             '... ctor lives';
     }
 
-}; # end SKIP
+}; # end SKIP no svn
 
 #------------------------------------------------------------------------------
 
@@ -132,13 +147,14 @@ print $repo->server_pid, "\n";
 END
 
     # Spawn a child process that starts a server (grandchild process).
-    my @cmd = ( qw( perl -MTest::SVN::Repo -e ), $code);
+    my @cmd = ( $Config{perlpath}, '-MTest::SVN::Repo', '-e' => $code);
     my ($in, $out, $err);
     my $h = IPC::Run::start(\@cmd, \$in, \$out, \$err);
 
     # Obtain the server pid (grandchild)
     my $pid;
     while (not $pid) {
+        die "Child process has died: $err" if not $h->pumpable;
         $h->pump;
         $pid = $out;
         chomp $pid;

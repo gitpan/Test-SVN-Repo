@@ -28,8 +28,9 @@ requires:
   Path::Class: 0
   Test::Builder::Module: 0
   Try::Tiny: 0
+  URI::file: 0
 resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Test-SVN-Repo
   homepage: http://search.cpan.org/dist/Test-SVN-Repo
   repository: git://github.com/sdt/test-svn-repo.git
-version: 0.004
+version: 0.005
