@@ -4,7 +4,7 @@
       "Stephen Thirlwall <sdt@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.200015, CPAN::Meta::Converter version 2.110440",
+   "generated_by" : "Dist::Zilla version 4.300000, CPAN::Meta::Converter version 2.110440",
    "license" : [
       "perl_5"
    ],
@@ -33,7 +33,10 @@
             "Path::Class" : 0,
             "Test::Builder::Module" : 0,
             "Try::Tiny" : 0,
-            "URI::file" : 0
+            "URI::file" : 0,
+            "base" : 0,
+            "strict" : 0,
+            "warnings" : 0
          }
       },
       "test" : {
@@ -61,6 +64,6 @@
          "web" : "https://github.com/sdt/test-svn-repo"
       }
    },
-   "version" : "0.005"
+   "version" : "0.006"
 }
 

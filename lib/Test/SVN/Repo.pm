@@ -1,6 +1,6 @@
 package Test::SVN::Repo;
 {
-  $Test::SVN::Repo::VERSION = '0.005';
+  $Test::SVN::Repo::VERSION = '0.006';
 }
 # ABSTRACT: Subversion repository fixtures for testing
 
@@ -175,7 +175,8 @@ sub _choose_random_port {
 
 sub _try_spawn_server {
     my ($self, $port) = @_;
-    $ENV{LC_ALL} = 'en_US'; # we're checking messages - need fixed locale
+    # We're checking message text - need to ensure matching locale
+    local $ENV{LC_MESSAGES} = 'en_US';
     my @cmd = ( 'svnserve',
                 '-d',           # daemon mode
                 '--foreground', # don't actually daemonize
@@ -202,10 +203,15 @@ sub _try_spawn_server {
 sub _get_server_pid {
     my ($self) = @_;
 
-    # We've already established that the server file exists
-    my $pid = _read_file($self->_server_pid_file);
-    chomp $pid;
-    return $pid;
+    # We've already established that the server file exists, but not that it
+    # has been written. Retry until we get some valid data in there.
+    while (1) {
+        my $data = _read_file($self->_server_pid_file);
+        if ($data =~ /^(\d+)\n$/ms) {
+            return $1;
+        }
+        _sleep(0.1);
+    }
 }
 
 sub _kill_server {
@@ -241,7 +247,7 @@ Test::SVN::Repo - Subversion repository fixtures for testing
 
 =head1 VERSION
 
-version 0.005
+version 0.006
 
 =head1 SYNOPSIS
 
