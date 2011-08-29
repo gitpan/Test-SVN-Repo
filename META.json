@@ -45,6 +45,7 @@
             "English" : 0,
             "File::Find" : 0,
             "IPC::Cmd" : 0,
+            "Probe::Perl" : 0,
             "Test::Exception" : 0,
             "Test::More" : 0,
             "Test::NoWarnings" : 0
@@ -64,6 +65,6 @@
          "web" : "https://github.com/sdt/test-svn-repo"
       }
    },
-   "version" : "0.006"
+   "version" : "0.007"
 }
 

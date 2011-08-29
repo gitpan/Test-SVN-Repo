@@ -1,6 +1,6 @@
 package Test::SVN::Repo;
 {
-  $Test::SVN::Repo::VERSION = '0.006';
+  $Test::SVN::Repo::VERSION = '0.007';
 }
 # ABSTRACT: Subversion repository fixtures for testing
 
@@ -60,6 +60,7 @@ sub new {
     $self->{start_port}  = _defined_or($args{start_port}, 1024);
     $self->{end_port}    = _defined_or($args{end_port}, 65535);
     $self->{retry_count} = _defined_or($args{retry_count}, 100);
+    $self->{pid}         = $$;
 
     bless $self, $class;
 
@@ -87,16 +88,19 @@ sub _init {
 sub DESTROY {
     my ($self) = @_;
     if (defined $self->{server}) {
-        _diag('Shutting down server pid ', $self->server_pid) if $self->verbose;
-        _kill_server($self->{server});
-        delete $running_servers{$self->{server}};
-        # wait until we can manually unlink the pid file - on Win32 it can
-        # still be locked and the rmtree fails
-        while (not unlink $self->_server_pid_file) {
-            _sleep(0.1);
+        if ($self->{pid} == $$) {
+            _diag('Shutting down server pid ', $self->server_pid)
+                if $self->verbose;
+            _kill_server($self->{server});
+            # wait until we can manually unlink the pid file - on Win32 it can
+            # still be locked and the rmtree fails
+            while (not unlink $self->_server_pid_file) {
+                _sleep(0.1);
+            }
         }
+        delete $running_servers{$self->{server}};
     }
-    $self->root_path->rmtree unless $self->keep_files;
+    $self->root_path->rmtree if !$self->keep_files && ($self->{pid} == $$);
 }
 
 #------------------------------------------------------------------------------
@@ -247,7 +251,7 @@ Test::SVN::Repo - Subversion repository fixtures for testing
 
 =head1 VERSION
 
-version 0.006
+version 0.007
 
 =head1 SYNOPSIS
 

@@ -12,6 +12,7 @@ my %module_build_args = (
     "File::Find" => 0,
     "IPC::Cmd" => 0,
     "Module::Build" => "0.3601",
+    "Probe::Perl" => 0,
     "Test::Exception" => 0,
     "Test::More" => 0,
     "Test::NoWarnings" => 0
@@ -24,7 +25,7 @@ my %module_build_args = (
     "Stephen Thirlwall <sdt\@cpan.org>"
   ],
   "dist_name" => "Test-SVN-Repo",
-  "dist_version" => "0.006",
+  "dist_version" => "0.007",
   "license" => "perl",
   "module_name" => "Test::SVN::Repo",
   "recommends" => {},

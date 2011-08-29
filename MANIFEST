@@ -9,9 +9,11 @@ dist.ini
 lib/Test/SVN/Repo.pm
 perlcritic.rc
 t/00-compile.t
+t/01-svn.t
+t/02-noserver.t
+t/03-server.t
+t/04-multiple.t
 t/author-critic.t
-t/multiple.t
-t/noserver.t
 t/release-check-changes.t
 t/release-cpan-changes.t
 t/release-distmeta.t
@@ -22,4 +24,3 @@ t/release-pod-coverage.t
 t/release-pod-syntax.t
 t/release-portability.t
 t/release-synopsis.t
-t/server.t

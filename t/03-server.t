@@ -3,20 +3,20 @@
 use strict;
 use warnings;
 
-use Test::More tests => 27 + ($ENV{RELEASE_TESTING} ? 1 : 0);
+use Test::More tests => 30 + ($ENV{RELEASE_TESTING} ? 1 : 0);
 use Test::Exception;
 require Test::NoWarnings if $ENV{RELEASE_TESTING};
 
-use Config;
 use IPC::Cmd qw( can_run run );
 use IPC::Run ();
+use Probe::Perl;
 
 BEGIN { use_ok( 'Test::SVN::Repo' ) }
 
 my $svn;
 
 SKIP: {
-    skip 'Subversion not installed', 26
+    skip 'Subversion not installed', 29
         unless ($svn = can_run('svn'));
 
     my %users = ( userA => 'passA', userB => 'passB' );
@@ -30,6 +30,7 @@ SKIP: {
         ok( run_ok($svn, 'info', $repo->url), '... is a valid repo');
 
         my $pid = $repo->server_pid;
+        ok(process_exists($pid), '... server is running');
         undef $repo;
         ok(! process_exists($pid), '... server has shutdown')
     }
@@ -62,7 +63,7 @@ SKIP: {
     }
 
 SKIP: {
-    skip 'Not valid for Win32', 15
+    skip 'Not valid for Win32', 18
        if $^O eq 'MSWin32';
 
     note 'Port range tests'; {
@@ -107,13 +108,31 @@ SKIP: {
             ok(! process_exists($pid), '... svnserve process has shutdown after receiving signal ' . $signame)
         }
     }
-} # end SKIP Win32
 
-    note 'Verbose mode'; {
-        lives_ok { Test::SVN::Repo->new( users => \%users, verbose => 1 ) }
-            '... ctor lives';
+    note 'Forking'; {
+
+        my $repo = Test::SVN::Repo->new( users => \%users );
+        ok(run_ok($svn, 'info', $repo->url), '... server is alive');
+
+        lives_ok {
+            my $pid = fork;
+            die unless defined $pid;
+            if ($pid) {
+                waitpid($pid, 0);
+            }
+            else {
+                exit 0;
+            }
+        } '... created child process';
+
+        my $ok;
+        ok($ok = run_ok($svn, 'info', $repo->url), '... server is still alive');
+
+        # This is a hack so that we don't hang if the test fails
+        delete $repo->{server} unless $ok;
     }
 
+}; # end SKIP Win32
 }; # end SKIP no svn
 
 Test::NoWarnings::had_no_warnings() if $ENV{RELEASE_TESTING};
@@ -148,7 +167,8 @@ print $repo->server_pid, "\n";
 END
 
     # Spawn a child process that starts a server (grandchild process).
-    my @cmd = ( $Config{perlpath}, '-MTest::SVN::Repo', '-e' => $code);
+    my $perl = Probe::Perl->find_perl_interpreter;
+    my @cmd = ( $perl, '-MTest::SVN::Repo', '-e' => $code);
     my ($in, $out, $err);
     my $h = IPC::Run::start(\@cmd, \$in, \$out, \$err);
 
