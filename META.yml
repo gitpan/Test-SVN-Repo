@@ -7,15 +7,17 @@ build_requires:
   English: 0
   File::Find: 0
   IPC::Cmd: 0
-  Module::Build: 0.3601
   Probe::Perl: 0
   Test::Exception: 0
   Test::More: 0
   Test::NoWarnings: 0
 configure_requires:
-  Module::Build: 0.3601
+  ExtUtils::MakeMaker: 6.30
+  File::Temp: 0
+  IPC::Cmd: 0
+  IPC::Run: 0
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300000, CPAN::Meta::Converter version 2.110440'
+generated_by: 'Dist::Zilla version 4.300002, CPAN::Meta::Converter version 2.112150'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -37,4 +39,4 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Test-SVN-Repo
   homepage: http://search.cpan.org/dist/Test-SVN-Repo
   repository: git://github.com/sdt/test-svn-repo.git
-version: 0.007
+version: 0.008

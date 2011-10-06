@@ -1,6 +1,6 @@
 package Test::SVN::Repo;
 {
-  $Test::SVN::Repo::VERSION = '0.007';
+  $Test::SVN::Repo::VERSION = '0.008';
 }
 # ABSTRACT: Subversion repository fixtures for testing
 
@@ -251,7 +251,7 @@ Test::SVN::Repo - Subversion repository fixtures for testing
 
 =head1 VERSION
 
-version 0.007
+version 0.008
 
 =head1 SYNOPSIS
 
