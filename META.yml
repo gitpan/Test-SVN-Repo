@@ -4,7 +4,6 @@ author:
   - 'Stephen Thirlwall <sdt@cpan.org>'
 build_requires:
   Config: 0
-  English: 0
   File::Find: 0
   IPC::Cmd: 0
   Probe::Perl: 0
@@ -17,7 +16,7 @@ configure_requires:
   IPC::Cmd: 0
   IPC::Run: 0
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300002, CPAN::Meta::Converter version 2.112150'
+generated_by: 'Dist::Zilla version 4.300029, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -33,10 +32,11 @@ requires:
   Try::Tiny: 0
   URI::file: 0
   base: 0
+  perl: 5.006
   strict: 0
   warnings: 0
 resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Test-SVN-Repo
   homepage: http://search.cpan.org/dist/Test-SVN-Repo
   repository: git://github.com/sdt/test-svn-repo.git
-version: 0.008
+version: 0.009

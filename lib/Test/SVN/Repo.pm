@@ -1,6 +1,6 @@
 package Test::SVN::Repo;
 {
-  $Test::SVN::Repo::VERSION = '0.008';
+  $Test::SVN::Repo::VERSION = '0.009';
 }
 # ABSTRACT: Subversion repository fixtures for testing
 
@@ -42,7 +42,7 @@ sub url {
     my ($self) = @_;
     return $self->is_authenticated
             ? 'svn://localhost:' . $self->server_port
-            : URI::file->new($self->repo_path);
+            : URI::file->new($self->repo_path)->as_string;
 }
 
 #------------------------------------------------------------------------------
@@ -251,7 +251,7 @@ Test::SVN::Repo - Subversion repository fixtures for testing
 
 =head1 VERSION
 
-version 0.008
+version 0.009
 
 =head1 SYNOPSIS
 
@@ -363,7 +363,7 @@ Stephen Thirlwall <sdt@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Stephen Thirlwall.
+This software is copyright (c) 2013 by Stephen Thirlwall.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
