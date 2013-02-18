@@ -1,6 +1,6 @@
 package Test::SVN::Repo;
 {
-  $Test::SVN::Repo::VERSION = '0.009';
+  $Test::SVN::Repo::VERSION = '0.010';
 }
 # ABSTRACT: Subversion repository fixtures for testing
 
@@ -32,6 +32,7 @@ sub CLEANUP {
     exit(0);
 }
 $SIG{$_} = \&CLEANUP for qw( HUP INT QUIT TERM );
+END { CLEANUP() }
 
 #------------------------------------------------------------------------------
 
@@ -51,8 +52,8 @@ sub new {
     my ($class, %args) = @_;
     my $self = {};
 
-    $self->{root_path}   = Path::Class::Dir->new(
-                            _defined_or($args{root_path}, tempdir));
+    $self->{root_path}   = Path::Class::Dir->new(defined($args{root_path}) ?
+                                $args{root_path} : tempdir( CLEANUP => 1 ));
     $self->{users}       = $args{users} if exists $args{users};
     $self->{keep_files}  = _defined_or($args{keep_files},
                                 defined($args{root_path})),
@@ -241,7 +242,7 @@ sub _sleep {
 
 1;
 
-
+__END__
 
 =pod
 
@@ -251,7 +252,7 @@ Test::SVN::Repo - Subversion repository fixtures for testing
 
 =head1 VERSION
 
-version 0.009
+version 0.010
 
 =head1 SYNOPSIS
 
@@ -369,7 +370,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-
