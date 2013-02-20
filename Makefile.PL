@@ -65,6 +65,7 @@ my %WriteMakefileArgs = (
     'File::Temp' => '0',
     'IPC::Run' => '0',
     'Path::Class' => '0',
+    'Scalar::Util' => '0',
     'Test::Builder::Module' => '0',
     'Try::Tiny' => '0',
     'URI::file' => '0',
@@ -72,7 +73,7 @@ my %WriteMakefileArgs = (
     'strict' => '0',
     'warnings' => '0'
   },
-  'VERSION' => '0.010',
+  'VERSION' => '0.011',
   'test' => {
     'TESTS' => 't/*.t'
   }

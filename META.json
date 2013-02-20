@@ -37,6 +37,7 @@
             "File::Temp" : "0",
             "IPC::Run" : "0",
             "Path::Class" : "0",
+            "Scalar::Util" : "0",
             "Test::Builder::Module" : "0",
             "Try::Tiny" : "0",
             "URI::file" : "0",
@@ -71,6 +72,6 @@
          "web" : "https://github.com/sdt/test-svn-repo"
       }
    },
-   "version" : "0.010"
+   "version" : "0.011"
 }
 

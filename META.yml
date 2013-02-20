@@ -28,6 +28,7 @@ requires:
   File::Temp: 0
   IPC::Run: 0
   Path::Class: 0
+  Scalar::Util: 0
   Test::Builder::Module: 0
   Try::Tiny: 0
   URI::file: 0
@@ -39,4 +40,4 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Test-SVN-Repo
   homepage: http://search.cpan.org/dist/Test-SVN-Repo
   repository: git://github.com/sdt/test-svn-repo.git
-version: 0.010
+version: 0.011
