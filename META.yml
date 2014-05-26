@@ -3,41 +3,43 @@ abstract: 'Subversion repository fixtures for testing'
 author:
   - 'Stephen Thirlwall <sdt@cpan.org>'
 build_requires:
-  Config: 0
-  File::Find: 0
-  IPC::Cmd: 0
-  Probe::Perl: 0
-  Test::Exception: 0
-  Test::More: 0
-  Test::NoWarnings: 0
+  File::Spec: '0'
+  IO::Handle: '0'
+  IPC::Cmd: '0'
+  IPC::Open3: '0'
+  Probe::Perl: '0'
+  Test::Exception: '0'
+  Test::More: '0'
+  Test::NoWarnings: '0'
+  perl: '5.006'
 configure_requires:
-  ExtUtils::MakeMaker: 6.30
-  File::Temp: 0
-  IPC::Cmd: 0
-  IPC::Run: 0
+  ExtUtils::MakeMaker: '6.30'
+  File::Temp: '0'
+  IPC::Cmd: '0'
+  IPC::Run: '0'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300030, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 5.017, CPAN::Meta::Converter version 2.141170'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Test-SVN-Repo
 requires:
-  Carp: 0
-  Class::Accessor: 0
-  File::Temp: 0
-  IPC::Run: 0
-  Path::Class: 0
-  Scalar::Util: 0
-  Test::Builder::Module: 0
-  Try::Tiny: 0
-  URI::file: 0
-  base: 0
-  perl: 5.006
-  strict: 0
-  warnings: 0
+  Carp: '0'
+  Class::Accessor: '0'
+  File::Temp: '0'
+  IPC::Run: '0'
+  Path::Class: '0'
+  Scalar::Util: '0'
+  Test::Builder::Module: '0'
+  Try::Tiny: '0'
+  URI::file: '0'
+  base: '0'
+  perl: '5.006'
+  strict: '0'
+  warnings: '0'
 resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Test-SVN-Repo
   homepage: http://search.cpan.org/dist/Test-SVN-Repo
   repository: git://github.com/sdt/test-svn-repo.git
-version: 0.011
+version: '0.012'

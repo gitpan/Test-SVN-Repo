@@ -1,9 +1,6 @@
 package Test::SVN::Repo;
-{
-  $Test::SVN::Repo::VERSION = '0.011';
-}
 # ABSTRACT: Subversion repository fixtures for testing
-
+$Test::SVN::Repo::VERSION = '0.012'; # TRIAL
 use strict;
 use warnings;
 
@@ -169,8 +166,6 @@ sub _choose_random_port {
 
 sub _try_spawn_server {
     my ($self, $port) = @_;
-    # We're checking message text - need to ensure matching locale
-    local $ENV{LC_MESSAGES} = 'en_US';
     my @cmd = ( 'svnserve',
                 '-d',           # daemon mode
                 '--foreground', # don't actually daemonize
@@ -190,7 +185,7 @@ sub _try_spawn_server {
         $h->pump_nb;
     }
     $h->finish;
-    return 0 if ($err =~ /Address already in use/); # retry
+    return 0 if ($err =~ /E000048/); # retry
     die $err;
 }
 
@@ -248,18 +243,20 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Test::SVN::Repo - Subversion repository fixtures for testing
 
 =head1 VERSION
 
-version 0.011
+version 0.012
 
 =head1 SYNOPSIS
 
     # Create a plain on-disk repo
-    $repo = Test::SVN::Repo->new;
+    my $repo = Test::SVN::Repo->new;
 
     # Create a repo with password authenticated server
     $repo = Test::SVN::Repo->new(
@@ -268,7 +265,8 @@ version 0.011
 
     my $repo_url = $repo->url;
 
-    system("svn co $repo");     # do stuff with your new repo
+    # do stuff with your new repo
+    system("svn co --username joe --password secret $repo_url");
 
 =head1 DESCRIPTION
 
