@@ -64,7 +64,7 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "mailto" : "bug-Test-SVN-Repo@rt.cpan.org",
@@ -77,6 +77,6 @@
          "web" : "https://github.com/sdt/test-svn-repo"
       }
    },
-   "version" : "0.013"
+   "version" : "0.014"
 }
 
