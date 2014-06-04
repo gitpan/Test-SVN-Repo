@@ -1,6 +1,6 @@
 package Test::SVN::Repo;
 # ABSTRACT: Subversion repository fixtures for testing
-$Test::SVN::Repo::VERSION = '0.014';
+$Test::SVN::Repo::VERSION = '0.015'; # TRIAL
 use strict;
 use warnings;
 
@@ -8,6 +8,7 @@ use Carp            qw( croak );
 use IPC::Run        qw( run start );
 use File::Temp      qw( tempdir );
 use Path::Class     ();
+use POSIX           qw( :errno_h );
 use Scalar::Util    qw( weaken );
 use Try::Tiny       qw( catch try );
 use URI::file       ();
@@ -166,8 +167,8 @@ sub _choose_random_port {
 
 sub _try_spawn_server {
     my ($self, $port) = @_;
-    # We're checking message text - need to ensure matching locale
-    local $ENV{LC_MESSAGES} = 'en_US';
+    # We're checking message text - need to ensure known locale
+    local $ENV{LC_MESSAGES} = 'C';
     my @cmd = ( 'svnserve',
                 '-d',           # daemon mode
                 '--foreground', # don't actually daemonize
@@ -187,8 +188,9 @@ sub _try_spawn_server {
         $h->pump_nb;
     }
     $h->finish;
-    return 0 if ($err =~ /Address already in use/i); # retry
-    return 0 if ($err =~ /E000048/i);                # retry
+    my $eaddrinuse = EADDRINUSE();
+    return 0 if ($err =~ /E0+$eaddrinuse\D/i);       # newer svn uses code
+    return 0 if ($err =~ /Address already in use/i); # older svn uses msg only
     die $err;
 }
 
@@ -254,7 +256,7 @@ Test::SVN::Repo - Subversion repository fixtures for testing
 
 =head1 VERSION
 
-version 0.014
+version 0.015
 
 =head1 SYNOPSIS
 

@@ -63,6 +63,7 @@ my %WriteMakefileArgs = (
     "Class::Accessor" => 0,
     "File::Temp" => 0,
     "IPC::Run" => 0,
+    "POSIX" => 0,
     "Path::Class" => 0,
     "Scalar::Util" => 0,
     "Test::Builder::Module" => 0,
@@ -82,7 +83,7 @@ my %WriteMakefileArgs = (
     "Test::More" => 0,
     "Test::NoWarnings" => 0
   },
-  "VERSION" => "0.014",
+  "VERSION" => "0.015",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -98,6 +99,7 @@ my %FallbackPrereqs = (
   "IPC::Cmd" => 0,
   "IPC::Open3" => 0,
   "IPC::Run" => 0,
+  "POSIX" => 0,
   "Path::Class" => 0,
   "Probe::Perl" => 0,
   "Scalar::Util" => 0,
