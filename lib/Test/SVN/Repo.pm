@@ -1,6 +1,6 @@
 package Test::SVN::Repo;
 # ABSTRACT: Subversion repository fixtures for testing
-$Test::SVN::Repo::VERSION = '0.015'; # TRIAL
+$Test::SVN::Repo::VERSION = '0.016'; # TRIAL
 use strict;
 use warnings;
 
@@ -8,7 +8,7 @@ use Carp            qw( croak );
 use IPC::Run        qw( run start );
 use File::Temp      qw( tempdir );
 use Path::Class     ();
-use POSIX           qw( :errno_h );
+use POSIX           qw( :errno_h strerror );
 use Scalar::Util    qw( weaken );
 use Try::Tiny       qw( catch try );
 use URI::file       ();
@@ -191,6 +191,10 @@ sub _try_spawn_server {
     my $eaddrinuse = EADDRINUSE();
     return 0 if ($err =~ /E0+$eaddrinuse\D/i);       # newer svn uses code
     return 0 if ($err =~ /Address already in use/i); # older svn uses msg only
+
+    # Final fallback for stubborn locales
+    my $eaddrinuse_msg = strerror($eaddrinuse);
+    return 0 if ($err =~ /\Q$eaddrinuse_msg\E/i);
     die $err;
 }
 
@@ -256,7 +260,7 @@ Test::SVN::Repo - Subversion repository fixtures for testing
 
 =head1 VERSION
 
-version 0.015
+version 0.016
 
 =head1 SYNOPSIS
 

@@ -1,5 +1,9 @@
 Revision History for perl module Test::SVN::Repo
 
+0.016-TRIAL 2014-06-11
+
+    - Also use strerror(EADDRINUSE) to catch stubborn locales
+
 0.015-TRIAL 2014-06-04
 
     - Use LC_MESSAGES=C to fix locale language
