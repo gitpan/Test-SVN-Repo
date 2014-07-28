@@ -18,7 +18,7 @@ configure_requires:
   IPC::Cmd: '0'
   IPC::Run: '0'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.017, CPAN::Meta::Converter version 2.141170'
+generated_by: 'Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.140640'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -32,8 +32,6 @@ requires:
   POSIX: '0'
   Path::Class: '0'
   Scalar::Util: '0'
-  Test::Builder::Module: '0'
-  Try::Tiny: '0'
   URI::file: '0'
   base: '0'
   perl: '5.006'
@@ -43,4 +41,4 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Test-SVN-Repo
   homepage: http://search.cpan.org/dist/Test-SVN-Repo
   repository: git://github.com/sdt/test-svn-repo.git
-version: '0.017'
+version: '0.018'

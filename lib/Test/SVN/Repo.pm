@@ -1,6 +1,6 @@
 package Test::SVN::Repo;
 # ABSTRACT: Subversion repository fixtures for testing
-$Test::SVN::Repo::VERSION = '0.017';
+$Test::SVN::Repo::VERSION = '0.018';
 use strict;
 use warnings;
 
@@ -10,10 +10,9 @@ use File::Temp      qw( tempdir );
 use Path::Class     ();
 use POSIX           qw( :errno_h strerror );
 use Scalar::Util    qw( weaken );
-use Try::Tiny       qw( catch try );
 use URI::file       ();
 
-use base qw( Class::Accessor Test::Builder::Module );
+use base qw( Class::Accessor );
 
 __PACKAGE__->mk_ro_accessors(qw(
         root_path users keep_files verbose start_port end_port retry_count
@@ -31,7 +30,8 @@ sub CLEANUP {
     }
     exit(0);
 }
-$SIG{$_} = \&CLEANUP for qw( HUP INT QUIT TERM );
+$SIG{$_} = \&CLEANUP
+    for qw( ABRT BUS EMT FPE HUP ILL INT PIPE QUIT SEGV SYS TERM TRAP );
 END { CLEANUP() }
 
 #------------------------------------------------------------------------------
@@ -260,7 +260,7 @@ Test::SVN::Repo - Subversion repository fixtures for testing
 
 =head1 VERSION
 
-version 0.017
+version 0.018
 
 =head1 SYNOPSIS
 
