@@ -1,6 +1,6 @@
 package Test::SVN::Repo;
 # ABSTRACT: Subversion repository fixtures for testing
-$Test::SVN::Repo::VERSION = '0.018';
+$Test::SVN::Repo::VERSION = '0.019';
 use strict;
 use warnings;
 
@@ -30,8 +30,11 @@ sub CLEANUP {
     }
     exit(0);
 }
-$SIG{$_} = \&CLEANUP
-    for qw( ABRT BUS EMT FPE HUP ILL INT PIPE QUIT SEGV SYS TERM TRAP );
+
+for my $sig (qw( ABRT BUS EMT FPE HUP ILL INT PIPE QUIT SEGV SYS TERM TRAP )) {
+    next unless exists $SIG{$sig};
+    $SIG{$sig} = \&CLEANUP
+}
 END { CLEANUP() }
 
 #------------------------------------------------------------------------------
@@ -260,7 +263,7 @@ Test::SVN::Repo - Subversion repository fixtures for testing
 
 =head1 VERSION
 
-version 0.018
+version 0.019
 
 =head1 SYNOPSIS
 
