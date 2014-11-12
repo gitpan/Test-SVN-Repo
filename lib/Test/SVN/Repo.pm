@@ -1,6 +1,6 @@
 package Test::SVN::Repo;
 # ABSTRACT: Subversion repository fixtures for testing
-$Test::SVN::Repo::VERSION = '0.020';
+$Test::SVN::Repo::VERSION = '0.021'; # TRIAL
 use strict;
 use warnings;
 
@@ -171,7 +171,7 @@ sub _choose_random_port {
 sub _try_spawn_server {
     my ($self, $port) = @_;
     # We're checking message text - need to ensure known locale
-    local $ENV{LC_MESSAGES} = 'C';
+    local $ENV{LC_ALL} = 'C';
     my @cmd = ( 'svnserve',
                 '-d',           # daemon mode
                 '--foreground', # don't actually daemonize
@@ -198,7 +198,7 @@ sub _try_spawn_server {
     # Final fallback for stubborn locales
     my $eaddrinuse_msg = strerror($eaddrinuse);
     return 0 if ($err =~ /\Q$eaddrinuse_msg\E/i);
-    die $err;
+    die "$err (EADDRINUSE=\"$eaddrinuse_msg\")\n";
 }
 
 sub _get_server_pid {
@@ -263,7 +263,7 @@ Test::SVN::Repo - Subversion repository fixtures for testing
 
 =head1 VERSION
 
-version 0.020
+version 0.021
 
 =head1 SYNOPSIS
 
