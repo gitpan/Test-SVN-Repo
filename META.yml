@@ -17,6 +17,7 @@ configure_requires:
   File::Temp: '0'
   IPC::Cmd: '0'
   IPC::Run: '0'
+  perl: '5.004'
 dynamic_config: 0
 generated_by: 'Dist::Zilla version 5.021, CPAN::Meta::Converter version 2.142690'
 license: perl
@@ -41,4 +42,4 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Test-SVN-Repo
   homepage: http://search.cpan.org/dist/Test-SVN-Repo
   repository: git://github.com/sdt/test-svn-repo.git
-version: '0.021'
+version: '0.022'

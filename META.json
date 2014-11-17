@@ -19,7 +19,8 @@
             "ExtUtils::MakeMaker" : "0",
             "File::Temp" : "0",
             "IPC::Cmd" : "0",
-            "IPC::Run" : "0"
+            "IPC::Run" : "0",
+            "perl" : "5.004"
          }
       },
       "develop" : {
@@ -27,6 +28,7 @@
             "Pod::Coverage::TrustPod" : "0",
             "Test::CPAN::Changes" : "0.19",
             "Test::CPAN::Meta" : "0",
+            "Test::EOL" : "0",
             "Test::More" : "0",
             "Test::NoTabs" : "0",
             "Test::Pod" : "1.41",
@@ -64,7 +66,7 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "mailto" : "bug-Test-SVN-Repo@rt.cpan.org",
@@ -77,6 +79,6 @@
          "web" : "https://github.com/sdt/test-svn-repo"
       }
    },
-   "version" : "0.021"
+   "version" : "0.022"
 }
 
